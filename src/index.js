@@ -5,8 +5,9 @@ import '@fortawesome/fontawesome-free/js/brands';
 import './css/bootstrap.min.css';
 import './css/style.css';
 
-import { renderAllPokeCards } from './homepage';
+import { renderAllPokeCards, displayNumberOfCards } from './homepage';
 
 window.onload = () => {
+  displayNumberOfCards(0);
   renderAllPokeCards();
 };

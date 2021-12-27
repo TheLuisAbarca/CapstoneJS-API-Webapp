@@ -117,7 +117,7 @@ ul > li.list-items > a {
 }
 
 .card-img-popup {
-  height: 400px;
+  height: 350px;
   width: 260px;
 }
 
@@ -133,8 +133,11 @@ ul > li.list-items > a {
 
 #fatherCommentsContainer {
   padding: 0;
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #bodyModal {
-  padding: 0;
+  margin: 0;
 }

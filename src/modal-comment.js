@@ -22,9 +22,9 @@ const populateComments = (invComment) => {
   const cmntDisplayComment = document.createElement('div');
   commentsRow.classList.add('row', 'mt-2', 'justify-content-center', 'align-items-center', 'commentsRow');
   commentsRow.id = `commentRow_${invComment.id}`;
-  cmntDisplayTime.classList.add('col-12', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-2', 'text-white');
-  cmntDisplayName.classList.add('col-3', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-2', 'text-white', 'fw-bold');
-  cmntDisplayComment.classList.add('col-9', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-8', 'text-white');
+  cmntDisplayTime.classList.add('col-12', 'd-flex', 'justify-content-start', 'align-items-center', 'col-md-2', 'justify-content-md-end', 'text-white');
+  cmntDisplayName.classList.add('col-3', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-2', 'justify-content-md-start', 'text-white', 'fw-bold');
+  cmntDisplayComment.classList.add('col-9', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-8', 'justify-content-md-center', 'text-white');
   cmntDisplayTime.innerText = invComment.creation_date;
   cmntDisplayName.innerText = `${invComment.username}:`;
   cmntDisplayComment.innerText = invComment.comment;
@@ -106,10 +106,10 @@ const createModalPopUp = (pokemonObject) => {
   inputName.setAttribute('oninput', 'validity.valid || (value="")');
   commentBtn.classList.add('col-4', 'offset-4', 'btn', 'btn-primary', 'commentBtn');
   modal.classList.add('row', 'square-container', 'border', 'border-white', 'rounded', 'm-4');
-  closeCol.classList.add('col-12', 'pt-2', 'pr-2', 'd-flex', 'justify-content-end', 'align-items-center', 'close-popup');
+  closeCol.classList.add('col-12', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'close-popup');
   closeIcon.classList.add('far', 'fa-times-circle', 'fa-3x');
   closeIcon.id = 'closeIcon';
-  bodyModal.classList.add('row', 'justify-content-center', 'align-items-center');
+  bodyModal.classList.add('row', 'pl-2', 'pr-2', 'justify-content-center', 'align-items-center');
   bodyModal.id = 'bodyModal';
   spanRow.classList.add('row', 'justify-content-center', 'align-items-center');
   spanMessage.classList.add('text-warning', 'fw-bold');

@@ -15,6 +15,9 @@ const updateLikeCount = (likeCount, pokemonId) => {
 
 const getOnelikeCount = (pokemonId) => DataAPI.microverseInvolvement.getLikes().then((data) => {
   const UpdateLikeCount = data.filter((like) => like.item_id === pokemonId);
+  if (typeof UpdateLikeCount === 'object' && UpdateLikeCount.length === 0) {
+    return 0;
+  }
   return UpdateLikeCount[0].likes;
 });
 
@@ -26,6 +29,17 @@ const countNumberOfCards = () => {
 const displayNumberOfCards = (howmany) => {
   const numberOfCards = document.getElementById('numberOfCards');
   numberOfCards.innerHTML = ` [${howmany}]`;
+};
+
+const loader = (pokefields) => {
+  const loader = document.createElement('div');
+  const iconSpinner = document.createElement('i');
+  loader.classList.add('loader', 'fa-5x', 'row', 'justify-content-center', 'align-items-center');
+  iconSpinner.classList.add('fas', 'fa-spinner', 'fa-spin', 'col-12', 'd-flex', 'justify-content-center', 'align-items-center', 'text-white');
+  loader.style.height = '80vh';
+  loader.appendChild(iconSpinner);
+  pokefields.appendChild(loader);
+  return loader;
 };
 
 const createPokeCard = (pokemon) => {
@@ -87,12 +101,16 @@ const createPokeCard = (pokemon) => {
 };
 
 const renderAllPokeCards = () => {
-  PokemonAPI.TCGpokemon.getTwelveCardsSwSh().then((data) => {
+  const pokeCards = document.getElementById('pokeCards');
+  const element2dissapear = loader(pokeCards);
+  PokemonAPI.TCGpokemon.getAllCardsFromSetSwSh().then((data) => {
     data.data.forEach((pokemon) => {
       createPokeCard(pokemon);
     });
     return data.data;
   }).then((arrayPokemonInfo) => {
+    element2dissapear.innerHTML = '';
+    pokeCards.removeChild(element2dissapear);
     arrayPokemonInfo.forEach((pokemon) => {
       getOnelikeCount(pokemon.id).then((data) => {
         updateLikeCount(data, pokemon.id);
@@ -108,4 +126,5 @@ export {
   createPokeCard,
   renderAllPokeCards,
   countNumberOfCards,
+  displayNumberOfCards,
 };

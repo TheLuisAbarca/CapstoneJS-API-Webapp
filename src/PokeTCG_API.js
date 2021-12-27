@@ -21,6 +21,7 @@ class PokeAPI {
       },
       getCardSetSwShbyId: (cardId) => this.TCGpokemon.basicCall2Api(`id:${cardId}`),
       getTwelveCardsSwSh: () => this.TCGpokemon.basicCall2Api('set.id:swsh1&pageSize=12'),
+      getAllCardsFromSetSwSh: () => this.TCGpokemon.basicCall2Api('set.id:swsh1'),
     }
 }
 
