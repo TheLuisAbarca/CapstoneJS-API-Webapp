@@ -2,6 +2,7 @@
 body {
   background-color: rgb(167, 133, 93);
   position: relative;
+  overflow-x: hidden;
 }
 
 h2 {
@@ -57,6 +58,10 @@ ul > li.list-items > a {
   text-decoration: none;
 }
 
+div.container-fluid {
+  height: 10vh;
+}
+
 .list-items {
   z-index: 2;
 }
@@ -68,7 +73,7 @@ ul > li.list-items > a {
 
 .logo-img {
   width: 100px;
-  height: 84px;
+  height: 10vh;
   background: no-repeat center/75% url("../css/img/pngwing.png");
   object-fit: contain;
 }
@@ -189,8 +194,24 @@ ul > li.list-items > a {
 }
 
 @media (min-width: 768px) {
+  nav {
+    height: 5vh;
+  }
+  
+  main {
+    height: 90vh;
+  }
+  
+  footer {
+    height: 5vh;
+  }
+
   .card-img-popup {
     height: 390px;
     width: 300px;
+  }
+
+  .logo-img {
+    height: 10vh;
   }
 }
