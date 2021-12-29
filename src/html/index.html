@@ -8,32 +8,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <title>Home Page</title>
+    <title>Pokemon TCG API</title>
 </head>
 
 <body class="">
     <div id="modal-popup-container" class="modal-popup hidden">
-
     </div>
-    <nav id="navContainer" class="row">
-        <div class="d-flex logo">
-            <div class="logo-img" alt="">
+    <nav id="navContainer" class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand-img">
+                <div class="logo-img" alt=""></div>
+            </a>
+            <button id="nav-toggler" type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul id="ul-nav" class="nav navbar-nav justify-content-evenly align-items-center w-100">
+                    <li class="nav-item list-items">
+                        <a class="item-nav text-white" href="">Cards</a>
+                        <span id="numberOfCards"></span>
+                    </li>
+                    <li class="nav-item list-items sets-element">
+                        <select id="parentSetCards" class="form-select" aria-label="Default select">
+                        </select>                    
+                    </li>
+                    <li class="nav-item list-items">
+                        <a class="github-button" href="https://github.com/TheLuisAbarca/CapstoneJS-API-Webapp" data-color-scheme="no-preference: light; light: light; dark: dark_dimmed;" data-icon="octicon-star" data-show-count="true" aria-label="Star TheLuisAbarca/CapstoneJS-API-Webapp on GitHub">Star</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <ul class="col-9 d-flex justify-content-around align-items-center">
-            <li class="list-items"><a class="item-nav text-white" href="">Cards</a><span id="numberOfCards"></span></li>
-            <li class="list-items"><a class="item-nav text-white" href="">Pokemon</a></li>
-            <li class="list-items"><a class="item-nav text-white" href="">Trainer</a></li>
-        </ul>
-    </nav>
+    </nav>    
     <main id="mainContainer" class="container">
         <section id="pokeCards" class="row align-items-center">
         </section>
     </main>
     <footer id="footerContainer" class="row">
         <div class="col-12 d-flex justify-content-start align-items-center">
-            <h2>Created by Luis Abarca and Angela Cuahutle under CC License.</h2>
+            <h2 class="footer-style">Created by Luis Abarca and Angela Cuahutle under CC License.</h2>
         </div>
     </footer>
 </body>
-
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </html>

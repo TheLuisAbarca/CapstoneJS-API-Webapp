@@ -1,6 +1,7 @@
 class PokeAPI {
     TCGpokemon = {
-      PokeURL: 'https://api.pokemontcg.io/v2/cards?q=',
+      PokeURLCards: 'https://api.pokemontcg.io/v2/cards',
+      PokeURLSets: 'https://api.pokemontcg.io/v2/sets',
       passOptions: (objOption) => {
         const options = {
           method: `${objOption}`,
@@ -10,8 +11,8 @@ class PokeAPI {
         };
         return options;
       },
-      basicCall2Api: async (query) => {
-        const url = this.TCGpokemon.PokeURL + query;
+      basicCall2Api: async (urlPoke, query) => {
+        const url = urlPoke + query;
         const options = this.TCGpokemon.passOptions('GET');
         const response = await fetch(url, options);
         return response.json();
@@ -19,9 +20,12 @@ class PokeAPI {
       get valueGetAllCards() {
         return this.getTwelveCardsSwSh();
       },
-      getCardSetSwShbyId: (cardId) => this.TCGpokemon.basicCall2Api(`id:${cardId}`),
-      getTwelveCardsSwSh: () => this.TCGpokemon.basicCall2Api('set.id:swsh1&pageSize=12'),
-      getAllCardsFromSetSwSh: () => this.TCGpokemon.basicCall2Api('set.id:swsh1'),
+      getCardSetSwShbyName: (cardName) => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLCards, `?q=name:${cardName}`),
+      getTwelveCardsSwSh: () => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLCards, '?q=set.id:swsh1&pageSize=12'),
+      getAllCardsFromSetSwSh: () => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLCards, '?q=set.id:swsh1'),
+      getAllCardsFromSet: (setId) => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLCards, `?q=set.id:${setId}`),
+      getAllCards: () => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLCards, '?page=58pageSize=250'),
+      getAllSets: () => this.TCGpokemon.basicCall2Api(this.TCGpokemon.PokeURLSets, ''),
     }
 }
 

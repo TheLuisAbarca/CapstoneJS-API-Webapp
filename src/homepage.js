@@ -34,10 +34,17 @@ const displayNumberOfCards = (howmany) => {
 const loader = (pokefields) => {
   const loader = document.createElement('div');
   const iconSpinner = document.createElement('i');
-  loader.classList.add('loader', 'fa-5x', 'row', 'justify-content-center', 'align-items-center');
-  iconSpinner.classList.add('fas', 'fa-spinner', 'fa-spin', 'col-12', 'd-flex', 'justify-content-center', 'align-items-center', 'text-white');
+  const message = document.createElement('h3');
+  const span = document.createElement('span');
+  loader.classList.add('loader', 'fa-2x', 'row', 'justify-content-center', 'align-items-center');
+  iconSpinner.classList.add('fas', 'fa-spinner', 'fa-spin', 'text-white');
+  message.classList.add('col-6', 'd-flex', 'justify-content-end', 'align-items-center', 'text-white');
+  span.classList.add('col-6', 'd-flex', 'justify-content-start', 'align-items-center', 'text-white');
   loader.style.height = '80vh';
-  loader.appendChild(iconSpinner);
+  message.innerText = 'Loading';
+  span.appendChild(iconSpinner);
+  loader.appendChild(message);
+  loader.appendChild(span);
   pokefields.appendChild(loader);
   return loader;
 };
@@ -68,9 +75,10 @@ const createPokeCard = (pokemon) => {
   likeCount.innerText = 0;
   cardText.classList.add('card-text', 'd-flex', 'justify-content-evenly', 'align-items-center');
   cardText.innerText = pokemon.flavorText || 'No Description';
-  commentButton.classList.add('btn', 'btn-primary', 'col-6');
+  commentButton.classList.add('btn', 'btn-primary', 'col-6', 'col-sm-8', 'col-md-10');
   commentButton.id = `commentButton_${pokemon.id}`;
   commentButton.innerText = 'Comments';
+  card.style.boxShadow = '4px 4px 10px black';
 
   likeIconContainer.appendChild(likeIcon);
   cardBody.appendChild(cardTitle);
@@ -93,23 +101,29 @@ const createPokeCard = (pokemon) => {
 
   commentButton.addEventListener('click', () => {
     modalContainer.classList.remove('hidden');
+    /* Effect of modal transparent background
     headerContainer.classList.add('hidden');
     mainContainer.classList.add('hidden');
-    footeContainer.classList.add('hidden');
+    footeContainer.classList.add('hidden'); */
+    headerContainer.style.filter = 'blur(8px)';
+    mainContainer.style.filter = 'blur(8px)';
+    footeContainer.style.filter = 'blur(8px)';
     createModalPopUp(pokemon);
   });
 };
 
-const renderAllPokeCards = () => {
+const renderAllPokeCards = (setId) => {
   const pokeCards = document.getElementById('pokeCards');
+  const mainContainer = document.getElementById('mainContainer');
+  mainContainer.style.overflowY = 'hidden';
   const element2dissapear = loader(pokeCards);
-  PokemonAPI.TCGpokemon.getAllCardsFromSetSwSh().then((data) => {
+  PokemonAPI.TCGpokemon.getAllCardsFromSet(setId).then((data) => {
     data.data.forEach((pokemon) => {
       createPokeCard(pokemon);
     });
     return data.data;
   }).then((arrayPokemonInfo) => {
-    element2dissapear.innerHTML = '';
+    mainContainer.style.overflowY = 'scroll';
     pokeCards.removeChild(element2dissapear);
     arrayPokemonInfo.forEach((pokemon) => {
       getOnelikeCount(pokemon.id).then((data) => {
@@ -120,9 +134,8 @@ const renderAllPokeCards = () => {
     displayNumberOfCards(numberCards);
   });
 };
-// eslint-disable-next-line import/prefer-default-export
+
 export {
-// eslint-disable-next-line import/prefer-default-export
   createPokeCard,
   renderAllPokeCards,
   countNumberOfCards,

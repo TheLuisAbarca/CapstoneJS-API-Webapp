@@ -7,7 +7,7 @@ const headerContainer = document.getElementById('navContainer');
 const mainContainer = document.getElementById('mainContainer');
 const footeContainer = document.getElementById('footerContainer');
 const countComments = (pokeId) => DataAPI.microverseInvolvement.getComments(pokeId).then(
-  (response) => response.length,
+  (response) => response.length || 0,
 );
 
 const displayCountComments = () => {
@@ -23,8 +23,8 @@ const populateComments = (invComment) => {
   commentsRow.classList.add('row', 'mt-2', 'justify-content-center', 'align-items-center', 'commentsRow');
   commentsRow.id = `commentRow_${invComment.id}`;
   cmntDisplayTime.classList.add('col-12', 'd-flex', 'justify-content-start', 'align-items-center', 'col-md-2', 'justify-content-md-end', 'text-white');
-  cmntDisplayName.classList.add('col-3', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-2', 'justify-content-md-start', 'text-white', 'fw-bold');
-  cmntDisplayComment.classList.add('col-9', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-8', 'justify-content-md-center', 'text-white');
+  cmntDisplayName.classList.add('col-4', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-2', 'justify-content-md-start', 'text-white', 'fw-bold');
+  cmntDisplayComment.classList.add('col-8', 'd-flex', 'justify-content-center', 'align-items-center', 'col-md-8', 'justify-content-md-center', 'text-white');
   cmntDisplayTime.innerText = invComment.creation_date;
   cmntDisplayName.innerText = `${invComment.username}:`;
   cmntDisplayComment.innerText = invComment.comment;
@@ -36,16 +36,19 @@ const populateComments = (invComment) => {
 
 const renderComments = (pokeId, commentsCol, commentsCounter) => {
   commentsCol.innerHTML = '';
-
   DataAPI.microverseInvolvement.getComments(pokeId).then((response) => {
     // eslint-disable-next-line no-prototype-builtins
     if (typeof response === 'object' && !response.hasOwnProperty('error')) {
       response.forEach((comment) => {
+        commentsCol.classList.remove('d-md-flex', 'justify-content-md-center', 'align-items-md-center');
+        commentsCol.style.overflowY = 'scroll';
+        /* commentsCol.style.overflowX = 'auto'; */
         const mixObj = { ...comment, id: pokeId };
         const elementComment = populateComments(mixObj);
         commentsCol.appendChild(elementComment);
       });
     } else if (typeof response === 'object' && response.error.status === 400) {
+      commentsCol.classList.add('d-flex', 'justify-content-center', 'align-items-center');
       commentsCol.innerText = 'No comments yet';
       commentsCounter.innerText = ' [0]';
     }
@@ -84,7 +87,8 @@ const createModalPopUp = (pokemonObject) => {
   const commentsCounter = document.createElement('span');
   const commentTittle = document.createElement('h5');
   commentsColContainer.id = 'fatherCommentsContainer';
-  commentsColContainer.classList.add('col-12', 'col-md-12', 'text-white');
+  commentsColContainer.style.overflowY = 'hidden';
+  commentsColContainer.classList.add('col-12', 'col-md-12', 'd-md-flex', 'justify-content-md-center', 'align-items-md-center', 'text-white');
   formContainer.classList.add('col-12', 'col-md-6');
   commentsContainer.classList.add('row', 'justify-content-center', 'align-items-center', 'mt-3');
   labelName.classList.add('col-form-label');
@@ -104,10 +108,10 @@ const createModalPopUp = (pokemonObject) => {
   inputComment.setAttribute('placeholder', 'Comment');
   inputName.setAttribute('min', '0');
   inputName.setAttribute('oninput', 'validity.valid || (value="")');
-  commentBtn.classList.add('col-4', 'offset-4', 'btn', 'btn-primary', 'commentBtn');
+  commentBtn.classList.add('col-6', 'offset-3', 'col-md-4', 'offset-md-4', 'btn', 'btn-primary', 'commentBtn');
   modal.classList.add('row', 'square-container', 'border', 'border-white', 'rounded', 'm-4');
-  closeCol.classList.add('col-12', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'close-popup');
-  closeIcon.classList.add('far', 'fa-times-circle', 'fa-3x');
+  closeCol.classList.add('col-12', 'pt-2', 'pb-2', 'd-flex', 'justify-content-end', 'align-items-center', 'close-popup');
+  closeIcon.classList.add('far', 'fa-times-circle', 'fa-2x');
   closeIcon.id = 'closeIcon';
   bodyModal.classList.add('row', 'pl-2', 'pr-2', 'justify-content-center', 'align-items-center');
   bodyModal.id = 'bodyModal';
@@ -116,11 +120,11 @@ const createModalPopUp = (pokemonObject) => {
   spanMessage.id = 'spanMessage';
   spanMessage.innerText = '';
   imageContainer.classList.add('col-12');
-  titleContainer.classList.add('col-12', 'pt-2', 'd-flex', 'justify-content-evenly', 'align-items-center', 'justify-content-md-center', 'text-white', 'text-uppercase');
+  titleContainer.classList.add('col-12', 'pt-2', 'd-flex', 'justify-content-evenly', 'align-items-center', 'justify-content-md-center', 'text-white', 'text-uppercase', 'fw-bolder');
   textContainer.classList.add('col-12', 'pt-2', 'd-flex', 'justify-content-center', 'align-items-center', 'text-white', 'text-uppercase');
-  divHpLabel.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-uppercase');
+  divHpLabel.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-uppercase', 'fw-bold');
   divHpValue.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-start', 'align-items-center', 'text-white', 'text-uppercase');
-  divRarityLabel.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-uppercase');
+  divRarityLabel.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-end', 'align-items-center', 'text-white', 'text-uppercase', 'fw-bold');
   divRarityValue.classList.add('col-3', 'pt-2', 'd-flex', 'justify-content-start', 'align-items-center', 'text-white', 'text-uppercase');
   imageContainer.classList.add('card-img-popup');
   imageContainer.src = pokemonObject.images.small;
@@ -142,9 +146,9 @@ const createModalPopUp = (pokemonObject) => {
   commentsCounter.innerText = ' [0]';
   commentsColContainer.innerText = 'No comments yet';
 
-  commentTittle.classList.add('text-white', 'd-flex', 'justify-content-center', 'align-items-center');
+  commentTittle.classList.add('text-white', 'd-flex', 'justify-content-start', 'justify-content-md-center', 'align-items-center', 'text-uppercase');
   commentsCounter.classList.add('text-white');
-  commentTittle.innerText = 'Comments';
+  commentTittle.innerText = 'Comments ';
   countComments(pokemonObject.id).then((data) => {
     commentsCounter.innerText = ` [${data}]`;
   });
@@ -180,9 +184,13 @@ const createModalPopUp = (pokemonObject) => {
   closeModal.addEventListener('click', () => {
     modalContainer.classList.add('hidden');
     document.querySelector('.modal-popup').removeChild(document.querySelector('.square-container'));
+    /* Effect of modal transparent background
     headerContainer.classList.remove('hidden');
     mainContainer.classList.remove('hidden');
-    footeContainer.classList.remove('hidden');
+    footeContainer.classList.remove('hidden'); */
+    headerContainer.style.filter = 'none';
+    mainContainer.style.filter = 'none';
+    footeContainer.style.filter = 'none';
   });
 
   const btnpostComment = document.querySelector(`#commentBtn_${pokemonObject.id}`);

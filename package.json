@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@popperjs/core": "^2.11.0",
     "canvas": "^2.8.0"
   }
 }

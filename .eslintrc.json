@@ -18,6 +18,7 @@
   "ignorePatterns": [
     "dist/",
     "build/",
-    "server.js"
+    "server.js",
+    "bootstrap.min.js"
   ]
 }
