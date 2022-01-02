@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// npm install --save-dev mini-css-extract-plugin
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   mode: 'development',
@@ -15,6 +17,7 @@ module.exports = {
       template: './src/html/index.html',
       favicon: './src/img/favicon.ico',
     }),
+    /* new MiniCssExtractPlugin(), */
   ],
   output: {
     filename: '[name].bundle.js',
@@ -27,6 +30,13 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      /* {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader, // instead of style-loader
+          'css-loader'
+        ]
+      }, */
       /* {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
