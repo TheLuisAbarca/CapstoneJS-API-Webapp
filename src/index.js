@@ -48,11 +48,7 @@ const populateSelectSets = () => {
       optionElement.value = set.id;
       selectSets.appendChild(optionElement);
     });
-  }).then(() => {
-    renderAllPokeCards('base1');
   });
-
-  // renderAllPokeCards('base1');
 
   selectSets.addEventListener('change', () => {
     const btnToggler = document.getElementById('nav-toggler');
@@ -69,15 +65,17 @@ const populateSelectSets = () => {
       const messageSet = personalizedMessage({ message: 'Select a Set of cards', prefixIcon: 'fas', specificIcon: 'fa-exclamation-triangle' });
       PokeCards.appendChild(messageSet);
     }
-    // renderAllPokeCards(selectedSet);
   });
+
   return new Promise((resolve) => {
     resolve('QUE BACAN REGRESA');
   });
 };
 
 const main = () => {
-  populateSelectSets().then(() => {});
+  populateSelectSets().then(() => {
+    renderAllPokeCards('base1');
+  });
   displayNumberOfCards(0);
 };
 

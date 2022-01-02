@@ -28,6 +28,10 @@ footer {
   box-shadow: 0 -4px 10px white;
 }
 
+footer.row {
+  --bs-gutter-x: 0;
+}
+
 h5 {
   margin: 0 !important;
   padding: 0 !important;
@@ -80,10 +84,6 @@ div.container-fluid {
 
 .footer-style {
   color: rgb(61, 61, 161);
-}
-
-.item-nav {
-  /* font-size: 2.5vw; */
 }
 
 .btn-primary {
@@ -152,8 +152,17 @@ div.container-fluid {
   display: none;
 }
 
+.navbar {
+  padding-top: 0;
+}
+
+.navbar-toggler {
+  background-color: #feca04;
+}
+
 #closeIcon {
   color: white;
+  animation: zoomIn 0.3s ease-in-out;
 }
 
 #closeIcon:hover {
@@ -193,15 +202,43 @@ div.container-fluid {
   z-index: 1;
 }
 
+#modal-popup-container {
+  animation: zoomOut 0.3s ease-in-out;
+}
+
+#navbarCollapse.navbar-collapse.collapse.show {
+  border-radius: 0 0 5px 5px;
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
+}
+
 @media (min-width: 768px) {
   nav {
     height: 5vh;
   }
-  
+
   main {
     height: 90vh;
   }
-  
+
   footer {
     height: 5vh;
   }
